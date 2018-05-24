@@ -15,7 +15,7 @@ func init() {
 }
 
 func startGinServer() {
-	router.Use(ginlogrus.Logger(Logger))
+	router.Use(ginlogrus.Logger(Log))
 	router.GET("/", func(context *gin.Context) {
 		context.JSON(http.StatusOK, gin.H{"success": "OK"})
 	})

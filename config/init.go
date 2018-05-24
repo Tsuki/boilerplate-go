@@ -7,9 +7,7 @@ import (
 	"path/filepath"
 )
 
-//var Log *logrus.Entry
 var Log *logrus.Logger
-var Logger *logrus.Logger
 
 func init() {
 	configLog()
@@ -17,10 +15,9 @@ func init() {
 }
 
 func configLog() {
-	log := &logrus.Logger{
+	Log = &logrus.Logger{
 		Out: os.Stdout,
 		Formatter: new(PkgTextFormatter),
-		//Formatter: new(logrus.TextFormatter),
 		Hooks:     make(logrus.LevelHooks),
 		Level:     logrus.InfoLevel,
 	}
@@ -30,10 +27,8 @@ func configLog() {
 		logrus.InfoLevel:  exPath + "/log/info.log",
 		logrus.ErrorLevel: exPath + "/log/error.log",
 	}
-	log.Hooks.Add(lfshook.NewHook(
+	Log.Hooks.Add(lfshook.NewHook(
 		pathMap,
 		&logrus.JSONFormatter{},
 	))
-	Logger = log
-	Log = log
 }
