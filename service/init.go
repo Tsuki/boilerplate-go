@@ -1,19 +1,21 @@
 package service
 
 import (
-	"github.com/gin-gonic/gin"
 	"net/http"
+	"github.com/gin-gonic/gin"
+	"github.com/toorop/gin-logrus"
+	. "boilerplate-go/config"
 )
 
-var router *gin.Engine
+var router = gin.Default()
 
 func init() {
+	Log.Info("Init Service")
 	go startGinServer()
 }
 
 func startGinServer() {
-	//gin.SetMode(gin.ReleaseMode)
-	router = gin.Default()
+	router.Use(ginlogrus.Logger(Logger))
 	router.GET("/", func(context *gin.Context) {
 		context.JSON(http.StatusOK, gin.H{"success": "OK"})
 	})

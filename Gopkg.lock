@@ -30,10 +30,22 @@
   version = "v0.0.3"
 
 [[projects]]
+  name = "github.com/rifflock/lfshook"
+  packages = ["."]
+  revision = "bf539943797a1f34c1f502d07de419b5238ae6c6"
+  version = "v2.3"
+
+[[projects]]
   name = "github.com/sirupsen/logrus"
   packages = ["."]
   revision = "c155da19408a8799da419ed3eeb0cb5db0ad5dbc"
   version = "v1.0.5"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/toorop/gin-logrus"
+  packages = ["."]
+  revision = "fd3afab50f4f71a32c5409c164d19f2c01cca5af"
 
 [[projects]]
   name = "github.com/ugorji/go"
@@ -71,6 +83,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "53cb01a22ad1c93f3ae0a126b5310b5e828eb8c2b05d415d90ca204577c391db"
+  inputs-digest = "e9774aa4249eb88b9763eade99c77c61964d92ad4096cc1d898bcc03d298ff45"
   solver-name = "gps-cdcl"
   solver-version = 1
