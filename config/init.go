@@ -19,7 +19,7 @@ func init() {
 func configLog() {
 	log := &logrus.Logger{
 		Out: os.Stdout,
-		Formatter: new(PkgJSONFormatter),
+		Formatter: new(PkgTextFormatter),
 		//Formatter: new(logrus.TextFormatter),
 		Hooks:     make(logrus.LevelHooks),
 		Level:     logrus.InfoLevel,

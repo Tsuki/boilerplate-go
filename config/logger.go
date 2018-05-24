@@ -24,18 +24,9 @@ type filePos struct {
 	Line int    `json:"line"`
 }
 
-type PkgJSONFormatter struct {
-	Level   string `json:"level"`
-	Msg     string `json:"msg"`
-	Time    string `json:"time"`
-	Package string `json:"pkg"`
-	File    string `json:"file"`
-	Func    string `json:"func"`
-	Line    int    `json:"line"`
-	Pos     string `json:"pos"`
-}
+type PkgTextFormatter logrus.TextFormatter
 
-func (f *PkgJSONFormatter) Format(entry *logrus.Entry) ([]byte, error) {
+func (f *PkgTextFormatter) Format(entry *logrus.Entry) ([]byte, error) {
 	formatter := &(logrus.TextFormatter{})
 	stacktrace := getFilePos(5)
 	entry.Data["pos"] = fmt.Sprintf("%s.%s(%s:%d)", stacktrace.Pkg, stacktrace.Func, stacktrace.File, stacktrace.Line)
