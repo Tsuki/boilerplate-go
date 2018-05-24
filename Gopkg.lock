@@ -3,6 +3,15 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/gin-contrib/sessions"
+  packages = [
+    ".",
+    "memstore"
+  ]
+  revision = "15760a03818fe16125cd735433b57a7398335b13"
+
+[[projects]]
+  branch = "master"
   name = "github.com/gin-contrib/sse"
   packages = ["."]
   revision = "22d885f9ecc78bf4ee5d72b937e4bbcdc58e8cae"
@@ -24,10 +33,34 @@
   version = "v1.1.0"
 
 [[projects]]
+  name = "github.com/gorilla/context"
+  packages = ["."]
+  revision = "08b5f424b9271eedf6f9f0ce86cb9396ed337a42"
+  version = "v1.1.1"
+
+[[projects]]
+  name = "github.com/gorilla/securecookie"
+  packages = ["."]
+  revision = "e59506cc896acb7f7bf732d4fdf5e25f7ccd8983"
+  version = "v1.1.1"
+
+[[projects]]
+  name = "github.com/gorilla/sessions"
+  packages = ["."]
+  revision = "ca9ada44574153444b00d3fd9c8559e4cc95f896"
+  version = "v1.1"
+
+[[projects]]
   name = "github.com/mattn/go-isatty"
   packages = ["."]
   revision = "0360b2af4f38e8d38c7fce2a9f4e702702d73a39"
   version = "v0.0.3"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/quasoft/memstore"
+  packages = ["."]
+  revision = "72cbde23778087efc0d9af366d6f08ceacbf4705"
 
 [[projects]]
   name = "github.com/rifflock/lfshook"
@@ -83,6 +116,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "e9774aa4249eb88b9763eade99c77c61964d92ad4096cc1d898bcc03d298ff45"
+  inputs-digest = "9efcbec6b10300d4aba76f7b47616098f831b616b50e2b2a1509cc97e0b581f3"
   solver-name = "gps-cdcl"
   solver-version = 1
