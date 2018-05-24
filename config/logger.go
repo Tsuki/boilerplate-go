@@ -5,11 +5,7 @@ import (
 	"strings"
 	"path"
 	"github.com/sirupsen/logrus"
-	"io"
-	"golang.org/x/crypto/ssh/terminal"
-	"os"
 	"fmt"
-	"sync"
 )
 
 var gopath = func() string {
@@ -29,58 +25,21 @@ type filePos struct {
 }
 
 type PkgJSONFormatter struct {
-	Level      string `json:"level"`
-	Msg        string `json:"msg"`
-	Time       string `json:"time"`
-	Package    string `json:"pkg"`
-	File       string `json:"file"`
-	Func       string `json:"func"`
-	Line       int    `json:"line"`
-	Pos        string `json:"pos"`
-	isTerminal bool
-	sync.Once
-}
-
-func (f *PkgJSONFormatter) init(entry *logrus.Entry) {
-	if entry.Logger != nil {
-		f.isTerminal = checkIfTerminal(entry.Logger.Out)
-	}
-}
-func checkIfTerminal(w io.Writer) bool {
-	switch v := w.(type) {
-	case *os.File:
-		return terminal.IsTerminal(int(v.Fd()))
-	default:
-		return false
-	}
+	Level   string `json:"level"`
+	Msg     string `json:"msg"`
+	Time    string `json:"time"`
+	Package string `json:"pkg"`
+	File    string `json:"file"`
+	Func    string `json:"func"`
+	Line    int    `json:"line"`
+	Pos     string `json:"pos"`
 }
 
 func (f *PkgJSONFormatter) Format(entry *logrus.Entry) ([]byte, error) {
-	f.Do(func() { f.init(entry) })
-	//var bytes []byte
-	if f.isTerminal {
-		formatter := &(logrus.TextFormatter{})
-		stacktrace := getFilePos(5)
-		entry.Data["pos"] = fmt.Sprintf("%s.%s(%s:%d)", stacktrace.Pkg, stacktrace.Func, stacktrace.File, stacktrace.Line)
-		return formatter.Format(entry)
-	} else {
-		stacktrace := getFilePos(5)
-		jsonFormatter := &(logrus.JSONFormatter{})
-		entry.Data["pos"] = fmt.Sprintf("%s.%s(%s:%d)", stacktrace.Pkg, stacktrace.Func, stacktrace.File, stacktrace.Line)
-		return jsonFormatter.Format(entry)
-		//customFormatter := PkgJSONFormatter{}
-		//json.Unmarshal(bytes, &customFormatter)
-		//customFormatter.File = stacktrace.File
-		//customFormatter.Line = stacktrace.Line
-		//customFormatter.Package = stacktrace.Pkg
-		//customFormatter.Func = stacktrace.Func
-		//customFormatter.Pos = fmt.Sprintf("%s.%s(%s:%d)", stacktrace.Pkg, stacktrace.Func, stacktrace.File, stacktrace.Line)
-		//serialized, err := json.Marshal(customFormatter)
-		//if err != nil {
-		//	return nil, fmt.Errorf("failed to marshal fields to JSON, %v", err)
-		//}
-		//return bytes, nil
-	}
+	formatter := &(logrus.TextFormatter{})
+	stacktrace := getFilePos(5)
+	entry.Data["pos"] = fmt.Sprintf("%s.%s(%s:%d)", stacktrace.Pkg, stacktrace.Func, stacktrace.File, stacktrace.Line)
+	return formatter.Format(entry)
 }
 
 func getFilePos(skip int) filePos {
